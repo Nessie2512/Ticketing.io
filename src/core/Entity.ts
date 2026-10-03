@@ -3,9 +3,11 @@ export abstract class Entity <props>{
     private _id: string;
     private _createdAt: Date;
     private _editedAt: Date;
+    private props: props;
 
     constructor(props: props, id?: string) {
         this._id = id ?? crypto.randomUUID();
+        this.props = props;
         this._createdAt = new Date();
         this._editedAt = new Date();
     }
