@@ -7,92 +7,118 @@
 
   <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
     <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
 
-## Description
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+# TicketFlow — Sistema de Venda Rápida de Ingressos
 
-## Project setup
+O **TicketFlow** é um projeto concebido para simular o ciclo de vida real de um software em ambiente de produção. O sistema foi planejado para evoluir desde um MVP (Produto Mínimo Viável) simples até um cenário de alta concorrência, exigindo refatoração de código, gestão eficiente de recursos de banco de dados e resolução de problemas críticos de concorrência e paralelismo.
 
-```bash
-$ npm install
+---
+
+## 🚀 Sobre o Projeto
+
+Este repositório documenta a evolução de uma aplicação de venda de ingressos dividida em duas fases principais:
+
+1. **Fase 1 (O MVP Inicial):** Um CRUD simples e direto para gerenciamento de eventos e compra de bilhetes, focado na entrega rápida de valor.
+2. **Fase 2 (O Cenário de Produção / *Flash Sale*):** Uma mudança de escopo realista onde milhares de usuários tentam comprar os últimos ingressos em simultâneo, forçando a implementação de estratégias avançadas de engenharia de software.
+
+---
+
+## ⚙️ Desafios Técnicos Abordados
+
+Na Fase 2, o sistema simula os principais gargalos enfrentados por sistemas corporativos em produção:
+
+* **Concorrência e Paralelismo (*Race Conditions*):**
+* *Problema:* Múltiplas requisições simultâneas tentavam comprar o último ingresso disponível, resultando em "venda dupla" e estoque negativo.
+* *Solução:* Implementação de transações de banco de dados com níveis de isolamento adequados e controle de concorrência (otimista/pessimista).
+
+
+* **Pool de Conexões do Banco de Dados:**
+* *Problema:* Sob picos de acesso repentinos, a aplicação esgotava o limite de conexões do banco, gerando falhas em cascata.
+* *Solução:* Configuração, monitoramento e ajuste fino do *pool* de conexões (*min/max connections*, *idle timeout* e *acquire timeout*).
+
+
+* **Refatoração e Limpeza de Código:**
+* *Problema:* O código inicial monolítico e acoplado tornou-se insustentável para gerenciar regras de negócio complexas de pagamento e concorrência.
+* *Solução:* Reestruturação do código aplicando separação de responsabilidades, desacoplamento de camadas e preparação para filas de processamento em *background*.
+
+
+
+---
+
+## 🛠️ Tecnologias Sugeridas
+
+* **Backend:** Node.js, TypeScript, Express ou NestJS *(adaptável à stack de sua preferência)*
+* **Banco de Dados:** PostgreSQL (com suporte a transações robustas)
+* **Gerenciamento de Conexões:** `pg` pool ou Prisma / TypeORM
+* **Testes de Carga:** k6 ou Autocannon
+
+---
+
+## 📦 Arquitetura do Repositório (Estrutura Inicial)
+
+```text
+ticketflow/
+├── src/
+│   ├── @core/          # Regras de negócio e entidades de domínio
+│   ├── infra/          # Configuração de banco de dados, repositórios e pool de conexões
+│   ├── presentation/   # Controladores de rotas e adaptadores HTTP
+│   └── app.ts          # Inicialização da aplicação
+├── tests/              # Testes unitários e de carga
+├── docker-compose.yml  # Configuração de ambiente local (Banco de dados)
+└── README.md
+
 ```
 
-## Compile and run the project
+---
 
+## 🏃‍♂️ Como Executar o Projeto Localmente
+
+### Pré-requisitos
+
+* Node.js instalado
+* Docker e Docker Compose (para subir o banco de dados)
+
+### Passos:
+
+1. **Clone o repositório:**
 ```bash
-# development
-$ npm run start
+git clone https://github.com/seu-usuario/ticketflow.git
+cd ticketflow
 
-# watch mode
-$ npm run start:dev
-
-# production mode
-$ npm run start:prod
 ```
 
-## Run tests
 
+2. **Suba o banco de dados via Docker:**
 ```bash
-# unit tests
-$ npm run test
+docker-compose up -d
 
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
 ```
 
-## Deployment
 
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
-
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
-
+3. **Instale as dependências:**
 ```bash
-$ npm install -g @nestjs/mau
-$ mau deploy
+npm install
+
 ```
 
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
 
-## Resources
+4. **Execute a aplicação em modo de desenvolvimento:**
+```bash
+npm run dev
 
-Check out a few resources that may come in handy when working with NestJS:
+```
 
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
 
-## Support
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+---
 
-## Stay in touch
+## 🧪 Simulando o Ambiente de Produção (Testes de Carga)
 
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+Para testar o comportamento do **Pool de Conexões** e a resolução de **Concorrência** na Fase 2, utilize a ferramenta de testes de carga configurada:
 
-## License
+```bash
+# Exemplo de comando utilizando k6 para simular 5.000 usuários simultâneos
+k6 run tests/load-test.js
 
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+```
