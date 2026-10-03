@@ -4,7 +4,6 @@ type InvitationStatus = 'Available' | 'Booked' |  'Cancelled';
 
 type invitationProps = {
     eventId: string;
-    inviteEmail: string;
 }
 
 export class Invitation extends Entity<invitationProps> {
@@ -16,32 +15,28 @@ export class Invitation extends Entity<invitationProps> {
     }
 
     static create(props: invitationProps, id?: string): Invitation {
-
-        if (!this.isEmail(props.inviteEmail)) {
-            throw new Error('Invalid email address');
-        }
     
         return new Invitation(props, id);
     }
 
     get eventId(): string {
-        return this.eventId;
+        return this.props.eventId;
     }
 
-    get inviteeEmail(): string {
-        return this.inviteEmail;
-    }
+    // get inviteeEmail(): string {
+    //     return this.props.inviteEmail;
+    // }
 
     get invitationStatus(): InvitationStatus {
         return this._invitationStatus;
     }
     
-    set inviteEmail(email: string) {
-        if (!Invitation.isEmail(email)) {
-            throw new Error('Invalid email address');
-        }
-        this.props.inviteEmail = email;
-    }
+    // set inviteEmail(email: string) {
+    //     if (!Invitation.isEmail(email)) {
+    //         throw new Error('Invalid email address');
+    //     }
+    //     this.props.inviteEmail = email;
+    // }
 
 
   static isEmail(email: string): boolean {

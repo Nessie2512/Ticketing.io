@@ -4,11 +4,11 @@ import { Invitation } from './invitation.entity';
 
 describe("testing invitation", () => {
 
-    const newInvitation = Invitation.create({inviteEmail: "test@example.com", eventId: "event123"});
+    const newInvitation = Invitation.create({ eventId: "event123"});
 
     test("should create a new invitation with the given properties", () => {
         expect(newInvitation).toBeDefined();
-        expect(newInvitation.props.inviteEmail).toBe("test@example.com");
+        //expect(newInvitation.props.inviteEmail).toBe("test@example.com");
         expect(newInvitation.props.eventId).toBe("event123");
     });
 
@@ -16,11 +16,11 @@ describe("testing invitation", () => {
         expect(newInvitation.invitationStatus).toBe("Available");
     });
 
-    test("should throw an error for invalid email", () => {
-        expect(() => {
-            Invitation.create({inviteEmail: "invalid-email", eventId: "event123"});
-        }).toThrow("Invalid email address");
-    });
+    // test("should throw an error for invalid email", () => {
+    //     expect(() => {
+    //         Invitation.create({inviteEmail: "invalid-email", eventId: "event123"});
+    //     }).toThrow("Invalid email address");
+    // });
 
     test("should book the invitation", () => {
         newInvitation.book();
@@ -45,16 +45,16 @@ describe("testing invitation", () => {
         }).toThrow("Invitation cannot be cancelled. Current status: Cancelled");
     });
 
-    test("should set a new valid invitee email", () => {
-        newInvitation.inviteEmail = "newtest@example.com";
-        expect(newInvitation.props.inviteEmail).toBe("newtest@example.com");
-    });
+    // test("should set a new valid invitee email", () => {
+    //     newInvitation.inviteEmail = "newtest@example.com";
+    //     expect(newInvitation.props.inviteEmail).toBe("newtest@example.com");
+    // });
 
-    test("should throw an error for setting an invalid invitee email", () => {
-        expect(() => {
-            newInvitation.inviteEmail = "invalid-email";
-        }).toThrow("Invalid email address");
-    });
+    // test("should throw an error for setting an invalid invitee email", () => {
+    //     expect(() => {
+    //         newInvitation.inviteEmail = "invalid-email";
+    //     }).toThrow("Invalid email address");
+    // });
 
     test("should have createdAt and editedAt properties", () => {
         expect(newInvitation.createdAt).toBeInstanceOf(Date);

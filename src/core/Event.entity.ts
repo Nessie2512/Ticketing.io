@@ -41,27 +41,27 @@ export class Event extends Entity<eventProps> {
     }
 
     get invitations(): Invitation[] {
-        return this.invitations;
+        return this.props.invitations;
     }
 
     set eventName(name: string) {
-        this.eventName = name;
+        this.props.eventName = name;
     }
 
     set venue(venue: string) {
-        this.venue = venue;
+        this.props.venue = venue;
     }
 
     set eventDate(date: Date) {
-        this.eventDate = date;
+        this.props.eventDate = date;
     }
 
     set eventTime(time: string) {
-        this.eventTime = time;
+        this.props.eventTime = time;
     }
 
     set eventDescription(description: string) {
-        this.eventDescription = description;
+        this.props.eventDescription = description;
     }
 
 
@@ -84,5 +84,15 @@ export class Event extends Entity<eventProps> {
             throw new Error('Invitation is not booked and cannot be canceled.');
         }
         bookedInvitation.cancel();
+    }
+
+    public addInvitation(qty: number): void {
+
+        for (let i = 0; i < qty; i++) {
+            const newInvitation = Invitation.create({
+                eventId: this.id,
+            });
+            this.invitations.push(newInvitation);
+        }   
     }
 }
