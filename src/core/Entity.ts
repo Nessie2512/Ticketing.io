@@ -1,0 +1,25 @@
+
+export abstract class Entity <props>{
+    private _id: string;
+    private _createdAt: Date;
+    private _editedAt: Date;
+
+    constructor(props: props, id?: string) {
+        this._id = id ?? crypto.randomUUID();
+        this._createdAt = new Date();
+        this._editedAt = new Date();
+    }
+
+    get id(): string {
+        return this._id;
+    }
+
+    get createdAt(): Date {
+        return this._createdAt;
+    }
+
+    get editedAt(): Date {
+        return this._editedAt;
+    }
+
+}
