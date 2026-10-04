@@ -1,4 +1,4 @@
-import { Entity } from "../seed/Entity";
+import { Entity } from "../@seed/Entity";
 import { Invitation } from "./invitation.entity";
 
 type eventProps ={
@@ -7,13 +7,14 @@ type eventProps ={
     eventDate: Date;
     eventTime: string;
     eventDescription: string;
-    invitations: Invitation[];
 }
 
 export class Event extends Entity<eventProps> {
+     Invitations: Invitation[];
 
     private constructor(props: eventProps, id?: string) {
         super(props, id);
+        this.Invitations = []
     }
 
     static create(props: eventProps, id?: string): Event {
@@ -41,7 +42,7 @@ export class Event extends Entity<eventProps> {
     }
 
     get invitations(): Invitation[] {
-        return this.props.invitations;
+        return this.Invitations;
     }
 
     set eventName(name: string) {

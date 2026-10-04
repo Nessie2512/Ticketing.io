@@ -1,5 +1,5 @@
 import { Event } from "../entities/Event.entity"
-import { Repository } from "../seed/Repository"
+import { Repository } from "../@seed/Repository"
 
 export abstract class EventRepository implements Repository<Event>{
     abstract create(event:Event):Promise<void>
