@@ -15,6 +15,6 @@ export class createEvent{
 
     public async execute(data:createEventDTO){
         const newEvent = Event.create(data)
-        this.EventRepository.create(newEvent);
+        await this.EventRepository.create(newEvent);
     }
 }
