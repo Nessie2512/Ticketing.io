@@ -1,4 +1,4 @@
-import { Entity } from "./Entity";
+import { Entity } from "../seed/Entity";
 
 type InvitationStatus = 'Available' | 'Booked' |  'Cancelled';
 

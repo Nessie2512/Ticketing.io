@@ -1,4 +1,4 @@
-import { Entity } from "./Entity";
+import { Entity } from "../seed/Entity";
 import { Invitation } from "./invitation.entity";
 
 type eventProps ={
