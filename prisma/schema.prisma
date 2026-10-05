@@ -1,0 +1,31 @@
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+// Seu modelo de dados de teste
+model Event{
+    id          Int      @id @default(autoincrement())
+    name        String
+    description String?
+    date        DateTime
+    createdAt   DateTime @default(now())
+    editedAt    DateTime @updatedAt
+    invitations Invitation[]
+}
+
+
+model Invitation{
+    id        Int      @id @default(autoincrement())
+    email     String @unique
+    status    String
+    createdAt DateTime @default(now())
+    editedAt  DateTime @updatedAt
+    eventId   Int
+    event     Event    @relation(fields: [eventId], references: [id])
+}
+
