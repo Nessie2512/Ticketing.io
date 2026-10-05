@@ -1,4 +1,4 @@
-import { Event } from "../entities/Event.entity";
+
 import { EventRepository } from "../repo/eventRepo";
 
 type createInvitationDTO = {
