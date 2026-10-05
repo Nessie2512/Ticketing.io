@@ -72,7 +72,7 @@ export class Event extends Entity<eventProps> {
         (inv => inv.invitationStatus === 'Available');
 
         if (!availableInvitation) {
-            throw new Error('Invitation is not available for booking.');
+            throw new Error('there is not available for booking.');
         }
         availableInvitation.book();
     }
