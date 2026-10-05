@@ -77,9 +77,9 @@ export class Event extends Entity<eventProps> {
         availableInvitation.book();
     }
 
-    public cancelInvitation(invitation: Invitation): void {
+    public cancelInvitation(invitationId: string): void {
         const bookedInvitation = this.invitations.find
-        (inv => inv.id === invitation.id && inv.invitationStatus === 'Booked');
+        (inv => inv.id === invitationId && inv.invitationStatus === 'Booked');
 
         if (!bookedInvitation) {
             throw new Error('Invitation is not booked and cannot be canceled.');
