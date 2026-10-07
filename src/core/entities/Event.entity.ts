@@ -1,7 +1,7 @@
 import { Entity } from "../@seed/Entity";
 import { Invitation } from "./invitation.entity";
 
-type eventProps ={
+type eventProps = {
     eventName: string;
     venue: string;
     eventDate: Date;

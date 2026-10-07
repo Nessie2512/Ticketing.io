@@ -10,6 +10,7 @@ generator client {
 // Seu modelo de dados de teste
 model Event{
     id          Int      @id @default(autoincrement())
+    uuid        String   @unique
     name        String
     description String?
     date        DateTime
@@ -21,6 +22,7 @@ model Event{
 
 model Invitation{
     id        Int      @id @default(autoincrement())
+    uuid    String   @unique
     email     String @unique
     status    String
     createdAt DateTime @default(now())
