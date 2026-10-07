@@ -67,7 +67,7 @@ export class Event extends Entity<eventProps> {
 
 
 
-  public  bookInvitation(): void {
+  public  bookInvitation(email: string): void {
         const availableInvitation = this.invitations.find
         (inv => inv.invitationStatus === 'Available');
 
