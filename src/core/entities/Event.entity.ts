@@ -1,19 +1,20 @@
-import { Entity } from "./Entity";
+import { Entity } from "../@seed/Entity";
 import { Invitation } from "./invitation.entity";
 
-type eventProps ={
+type eventProps = {
     eventName: string;
     venue: string;
     eventDate: Date;
     eventTime: string;
     eventDescription: string;
-    invitations: Invitation[];
 }
 
 export class Event extends Entity<eventProps> {
+     Invitations: Invitation[];
 
     private constructor(props: eventProps, id?: string) {
         super(props, id);
+        this.Invitations = []
     }
 
     static create(props: eventProps, id?: string): Event {
@@ -41,7 +42,7 @@ export class Event extends Entity<eventProps> {
     }
 
     get invitations(): Invitation[] {
-        return this.props.invitations;
+        return this.Invitations;
     }
 
     set eventName(name: string) {
@@ -66,19 +67,20 @@ export class Event extends Entity<eventProps> {
 
 
 
-  public  bookInvitation(invitation: Invitation): void {
+  public  bookInvitation(email: string): void {
         const availableInvitation = this.invitations.find
-        (inv => inv.id === invitation.id && inv.invitationStatus === 'Available');
+        (inv => inv.invitationStatus === 'Available');
 
         if (!availableInvitation) {
-            throw new Error('Invitation is not available for booking.');
+            throw new Error('there is not available for booking.');
         }
+        availableInvitation.inviteEmail(email);
         availableInvitation.book();
     }
 
-    public cancelInvitation(invitation: Invitation): void {
+    public cancelInvitation(invitationId: string): void {
         const bookedInvitation = this.invitations.find
-        (inv => inv.id === invitation.id && inv.invitationStatus === 'Booked');
+        (inv => inv.id === invitationId && inv.invitationStatus === 'Booked');
 
         if (!bookedInvitation) {
             throw new Error('Invitation is not booked and cannot be canceled.');

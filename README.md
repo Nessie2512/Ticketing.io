@@ -122,3 +122,8 @@ Para testar o comportamento do **Pool de Conexões** e a resolução de **Concor
 k6 run tests/load-test.js
 
 ```
+
+npm run start:dev          # Inicia com banco em memória
+npm run prisma:push       # Sincroniza schema
+npm run test              # Roda testes com banco em memória
+npm run prisma:studio     # Visualiza dados (UI web)

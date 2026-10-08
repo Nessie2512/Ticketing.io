@@ -9,7 +9,6 @@ describe("testing event", () => {
         eventDate: new Date("2023-01-01"),
         eventTime: "18:00",
         eventDescription: "This is a test event",
-        invitations: []
     });
 
     test("should create a new event with the given properties", () => {
@@ -19,7 +18,6 @@ describe("testing event", () => {
         expect(newEvent.props.eventDate).toEqual(new Date("2023-01-01"));
         expect(newEvent.props.eventTime).toBe("18:00");
         expect(newEvent.props.eventDescription).toBe("This is a test event");
-        expect(newEvent.props.invitations).toEqual([]);
     });
 
     test("should have createdAt and editedAt properties", () => {
@@ -43,6 +41,6 @@ describe("testing event", () => {
 
     test("should add  invitations", () => {
         newEvent.addInvitation(3);
-        expect(newEvent.props.invitations.length).toBe(3);
+        expect(newEvent.invitations.length).toBe(3);
     });
 }); 

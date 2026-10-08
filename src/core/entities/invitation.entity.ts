@@ -1,4 +1,4 @@
-import { Entity } from "./Entity";
+import { Entity } from "../@seed/Entity";
 
 type InvitationStatus = 'Available' | 'Booked' |  'Cancelled';
 
@@ -8,6 +8,7 @@ type invitationProps = {
 
 export class Invitation extends Entity<invitationProps> {
     private _invitationStatus: InvitationStatus;
+     email?: string;
 
     private constructor(props: invitationProps, id?: string) {
         super(props, id);
@@ -31,15 +32,17 @@ export class Invitation extends Entity<invitationProps> {
         return this._invitationStatus;
     }
     
-    // set inviteEmail(email: string) {
-    //     if (!Invitation.isEmail(email)) {
-    //         throw new Error('Invalid email address');
-    //     }
-    //     this.props.inviteEmail = email;
-    // }
+
+    // I need to change to private
+    public inviteEmail(email: string) {
+        if (!this.isEmail(email)) {
+            throw new Error('Invalid email address');
+        }
+        this.email = email;
+    }
 
 
-  static isEmail(email: string): boolean {
+  protected isEmail(email: string): boolean {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return emailRegex.test(email);
   }
