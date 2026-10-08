@@ -1,33 +1,51 @@
 import { Injectable } from '@nestjs/common';
-import { InvitationRepository } from '../repository/prisma/invitation.repo';
+import { createInvitation } from '../../core/usecase/addInvitaion';
+import { buyInvitation } from '../../core/usecase/buyInvitation';
+import { getInvitationbyId } from '../../core/usecase/getInvitationById';
+import { cancelInvitation } from '../../core/usecase/cancelInvitation';
+
 
 @Injectable()
 export class invitationService { 
 
-  constructor(private readonly invitationRepository: InvitationRepository) {}
+  constructor(
+    private readonly createInvitationUsecase: createInvitation,
+    private readonly readInvitationUsecase: getInvitationbyId,
+    private readonly buyInvitationUsecase: buyInvitation,
+    private readonly cancelInvitationUsecase: cancelInvitation,
+  ) {}
 
-  async createInvitation(invitation: any): Promise<void> {
+  public async createInvitation(data: any): Promise<void> {
     try {
-      await this.invitationRepository.create(invitation);
+      await this.createInvitationUsecase.execute(data);
     } catch (error: any) {
-      throw new Error("Error creating invitation: " + error.message);
+      throw new Error('Error creating invitation: ' + error.message);
     }
   }
 
-  async findAllInvitations(): Promise<any[]> {
+  public async getInvitationById(id: string): Promise<any> {
     try {
-      return await this.invitationRepository.findAll();
+      return await this.readInvitationUsecase.execute(id);
     } catch (error: any) {
-      throw new Error("Error finding all invitations: " + error.message);
+      throw new Error('Error getting invitation by ID: ' + error.message);
     }
   }
 
-  async findInvitationById(id: string): Promise<any> {
+  public async buyInvitation(data: any): Promise<void> {
     try {
-      return await this.invitationRepository.findbyId(id);
-    } catch (error: any ) {
-      throw new Error("Error finding invitation by ID: " + error.message);
+      await this.buyInvitationUsecase.execute(data);
+    } catch (error: any) {
+      throw new Error('Error buying invitation: ' + error.message);
     }
   }
 
+  public async cancelInvitation(data: any): Promise<void> {
+    try {
+      await this.cancelInvitationUsecase.execute(data);
+    } catch (error: any) {
+      throw new Error('Error canceling invitation: ' + error.message);
+    }
+  }
+
+  
 }
