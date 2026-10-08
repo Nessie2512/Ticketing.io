@@ -3,7 +3,7 @@ import { EventRepository } from "../repo/eventRepo";
 
 type createInvitationDTO = {
     eventId: string;
-    invitationQty: string;
+    invitationQty: number;
 }
 
 export class createInvitation{
@@ -12,6 +12,6 @@ export class createInvitation{
 
     public async execute(data:createInvitationDTO){
         const event = await this.EventRepository.findbyId(data.eventId);
-        event.addInvitation(parseInt(data.invitationQty));
+        event.addInvitation(data.invitationQty);
     }
 }

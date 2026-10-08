@@ -3,6 +3,7 @@ import { createInvitation } from '../../core/usecase/addInvitaion';
 import { buyInvitation } from '../../core/usecase/buyInvitation';
 import { getInvitationbyId } from '../../core/usecase/getInvitationById';
 import { cancelInvitation } from '../../core/usecase/cancelInvitation';
+import { getAllInvitationFromEvent } from '../../core/usecase/getAllInvitation';
 
 
 @Injectable()
@@ -13,9 +14,10 @@ export class invitationService {
     private readonly readInvitationUsecase: getInvitationbyId,
     private readonly buyInvitationUsecase: buyInvitation,
     private readonly cancelInvitationUsecase: cancelInvitation,
+    private readonly getAllInvitationUsecase: getAllInvitationFromEvent
   ) {}
 
-  public async createInvitation(data: any): Promise<void> {
+  public async createInvitation(data: { eventId: string, invitationQty: number }): Promise<void> {
     try {
       await this.createInvitationUsecase.execute(data);
     } catch (error: any) {
@@ -47,5 +49,12 @@ export class invitationService {
     }
   }
 
-  
+  public async findAllInvitations(eventId: string): Promise<any> {
+    try {
+      return await this.getAllInvitationUsecase.execute(eventId);
+    } catch (error: any) {
+      throw new Error('Error getting all invitations: ' + error.message);
+    }
+  }
+
 }

@@ -3,6 +3,7 @@ import { EventRepository } from "../repo/eventRepo";
 
 type buyInvitationDTO = {
     eventId: string;
+    invitationEmail: string;
 }
 
 export class buyInvitation{
@@ -11,6 +12,6 @@ export class buyInvitation{
 
     public async execute(data:buyInvitationDTO){
         const event = await this.EventRepository.findbyId(data.eventId);
-        event.bookInvitation();
+        event.bookInvitation(data.invitationEmail);
     }
 }
