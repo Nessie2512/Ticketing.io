@@ -1,31 +1,39 @@
-import { EventRepository } from "../../core/repo/eventRepo";
+import { createEvent } from "../../core/usecase/createEvent";
+import { getAllEvents } from "../../core/usecase/getAllEvent";
+import { getEventbyId } from "../../core/usecase/getEventbyId";
+
 
 
 export class eventService {
 
-    constructor(private readonly eventRepository: EventRepository) {}
+    constructor(
+        private readonly createEventUseCase:createEvent,
+        private readonly getAllEventsUseCase:getAllEvents,
+        private readonly getEventByIdUseCase:getEventbyId,
+    ) {}
 
-    async createEvent(event: any): Promise<void> {
+    public async createEvent(data:any){
         try {
-            await this.eventRepository.create(event);
-        } catch (error: any) {
+            await this.createEventUseCase.execute(data);
+        } catch (error:any) {
             throw new Error("Error creating event: " + error.message);
         }
     }
 
-    async findAllEvents(): Promise<any[]> {
+    public async getAllEvents(){
         try {
-            return await this.eventRepository.findAll();
-        } catch (error: any) {
-            throw new Error("Error finding all events: " + error.message);
+            return await this.getAllEventsUseCase.execute();
+        } catch (error:any) {
+            throw new Error("Error getting all events: " + error.message);
         }
     }
 
-    async findEventById(id: string): Promise<any> {
+
+    public async getEventById(id:string){
         try {
-            return await this.eventRepository.findbyId(id);
-        } catch (error: any ) {
-            throw new Error("Error finding event by ID: " + error.message);
+            return await this.getEventByIdUseCase.execute(id);
+        } catch (error:any) {
+            throw new Error("Error getting event by ID: " + error.message);
         }
-    }
+    }   
 }

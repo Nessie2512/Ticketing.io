@@ -5,7 +5,7 @@ type readInvitationDTO = {
     invitationId: string;
 }
 
-export class readInvitation{
+export class readInvitation {
     
     constructor(
         private readonly InvitationRepository:InvitationRepo,
