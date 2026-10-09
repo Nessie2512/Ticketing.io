@@ -61,8 +61,8 @@ import { RepositoryEvent } from '../repository/prisma/event.repo';
     },
     {
       provide: addInvitation,
-      useFactory: (repository: EventRepository) => new addInvitation(repository),
-      inject: [EventRepository],
+      useFactory: (eventRepository: EventRepository, invitationRepository: InvitationRepo) => new addInvitation(eventRepository, invitationRepository),
+      inject: [EventRepository, InvitationRepo],
     },
     {
       provide: createInvitation,

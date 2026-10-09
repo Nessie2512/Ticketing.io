@@ -11,10 +11,13 @@ type createEventDTO = {
 
 export class createEvent{
     
-    constructor(private readonly EventRepository:EventRepository){}
+    constructor(
+        private readonly EventRepository:EventRepository
+    ){}
 
     public async execute(data:createEventDTO){
         const newEvent = Event.create(data)
+        //console.log('Creating event with data:', newEvent);
         await this.EventRepository.create(newEvent);
     }
 }

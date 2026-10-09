@@ -20,32 +20,34 @@ export class AppController {
   }
 
   @Get('events/:id')
-  async getEventById(id: string): Promise<any> {
+  async getEventById(@Param('id') id: string): Promise<any> {
     return this.eventService.getEventById(id);
   }
 
-  @Post('invitations')
-  async createInvitation(invitation: any): Promise<void> {
-    return this.invitationService.createInvitation(invitation);
+  @Post('invitations/:eventId')
+  async createInvitation(@Param('eventId') eventId: string, @Body() data: { invitationQty: number }): Promise<void> {
+    //console.log('Received invitation data:', data, 'for event ID:', eventId);
+    return this.invitationService.createInvitation({ ...data, eventId });
   }
 
   @Post('events')
-  async createEvent(event: any): Promise<void> {
+  async createEventcontroller(@Body() event: any): Promise<void> {
+    //console.log('Received event data:', event);
     return this.eventService.createEvent(event);
   }
 
   @Post('invitations/add-to-event/:invitationId/:eventId/:quantity')
-  async addInvitationToEvent(invitationId: string, eventId: string, quantity: number): Promise<void> {
+  async addInvitationToEvent(@Param('invitationId') invitationId: string, @Param('eventId') eventId: string, @Param('quantity') quantity: number): Promise<void> {
     return this.invitationService.createInvitation({  eventId, invitationQty: quantity });
   }
 
   @Post('invitations/book-to-event/:eventId')
-  async bookInvitationToEvent(eventId: string, @Body() data: { invitationEmail: string }): Promise<void> {
+  async bookInvitationToEvent(@Param('eventId') eventId: string, @Body() data: { invitationEmail: string }): Promise<void> {
     return this.invitationService.buyInvitation({eventId, invitationEmail: data.invitationEmail});
   }
 
   @Post('invitations/cancel-from-event/:invitationId/:eventId')
-  async cancelInvitationFromEvent(invitationId: string, eventId: string): Promise<void> {
+  async cancelInvitationFromEvent(@Param('invitationId') invitationId: string, @Param('eventId') eventId: string): Promise<void> {
     return this.invitationService.cancelInvitation({invitationId, eventId});
   }
 

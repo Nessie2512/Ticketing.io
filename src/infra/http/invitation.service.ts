@@ -19,6 +19,7 @@ export class invitationService {
 
   public async createInvitation(data: { eventId: string, invitationQty: number }): Promise<void> {
     try {
+      //console.log('Creating invitation with data:', data);
       await this.createInvitationUsecase.execute(data);
     } catch (error: any) {
       throw new Error('Error creating invitation: ' + error.message);

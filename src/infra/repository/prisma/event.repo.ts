@@ -12,6 +12,7 @@ export class RepositoryEvent implements EventRepository {
     public async create(event: Event): Promise<void> {
         
         try {
+            //console.log('Creating event with data:', event);
             await this.prisma.event.create({
                 data: eventMapper.toPrisma(event)
             });
@@ -45,6 +46,8 @@ export class RepositoryEvent implements EventRepository {
 
     public async findbyId(id: string): Promise<any> {
         try {
+
+            console.log('Finding event by ID:', id);
             const prismaEvent = await this.prisma.event.findUnique({ where: { uuid: id } });
             return eventMapper.fromPrisma(prismaEvent);
         } catch (error: any) {

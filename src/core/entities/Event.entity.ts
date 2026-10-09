@@ -22,23 +22,23 @@ export class Event extends Entity<eventProps> {
     }
 
     get eventName(): string {
-        return this.eventName;
+        return this.props.eventName;
     }
 
     get venue(): string {
-        return this.venue;
+        return this.props.venue;
     }
 
     get eventDate(): Date {
-        return this.eventDate;
+        return this.props.eventDate;
     }
 
     get eventTime(): string {
-        return this.eventTime;
+        return this.props.eventTime;
     }
 
     get eventDescription(): string {
-        return this.eventDescription;
+        return this.props.eventDescription;
     }
 
     get invitations(): Invitation[] {

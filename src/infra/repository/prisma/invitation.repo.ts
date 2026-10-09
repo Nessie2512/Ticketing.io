@@ -12,6 +12,7 @@ export class InvitationRepository implements InvitationRepo {
 
           try{
 
+               console.log('Creating invitation with data:', invitation);
            await this.prisma.invitation.create({
                     data: InvitationMapper.toPrisma(invitation)
                });

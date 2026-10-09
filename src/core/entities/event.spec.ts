@@ -13,6 +13,11 @@ describe("testing event", () => {
 
     test("should create a new event with the given properties", () => {
         expect(newEvent).toBeDefined();
+        expect(newEvent.eventName).toBe("Test Event");
+        expect(newEvent.venue).toBe("Test Venue");
+        expect(newEvent.eventDate).toEqual(new Date("2023-01-01"));
+        expect(newEvent.eventTime).toBe("18:00");
+        expect(newEvent.eventDescription).toBe("This is a test event");
         expect(newEvent.props.eventName).toBe("Test Event");
         expect(newEvent.props.venue).toBe("Test Venue");
         expect(newEvent.props.eventDate).toEqual(new Date("2023-01-01"));

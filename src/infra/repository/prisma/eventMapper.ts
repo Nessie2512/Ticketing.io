@@ -18,12 +18,13 @@ export class eventMapper {
     public static fromPrisma(prismaEvent: any): Event {
         return Event.create(
             {
-                eventName: prismaEvent.name,
+                eventName: prismaEvent.eventname,
                 venue: prismaEvent.location,
                 eventDate: prismaEvent.date,
                 eventTime: prismaEvent.time,
                 eventDescription: prismaEvent.description
             },
+            prismaEvent.uuid,
         );
     }
 }
