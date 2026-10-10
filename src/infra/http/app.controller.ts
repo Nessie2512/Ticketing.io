@@ -9,9 +9,14 @@ export class AppController {
     private readonly eventService: eventService
   ) {}
 
-  @Get('invitations/:eventId')
+  @Get('allinvitations/:eventId')
   async getAllInvitations(eventId: string): Promise<any[]> {
     return this.invitationService.findAllInvitations(eventId);
+  }
+
+  @Get('invitations/:invitationId')
+    async getInvitationbyId(@Param('invitationId') invitationId:string ): Promise<any[]> {
+    return this.invitationService.getInvitationById(invitationId);
   }
 
   @Get('events')
@@ -26,7 +31,6 @@ export class AppController {
 
   @Post('invitations/:eventId')
   async createInvitation(@Param('eventId') eventId: string, @Body() data: { invitationQty: number }): Promise<void> {
-    //console.log('Received invitation data:', data, 'for event ID:', eventId);
     return this.invitationService.createInvitation({ ...data, eventId });
   }
 

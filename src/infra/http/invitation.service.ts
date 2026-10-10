@@ -28,9 +28,13 @@ export class invitationService {
 
   public async getInvitationById(id: string): Promise<any> {
     try {
+
       return await this.readInvitationUsecase.execute(id);
+
     } catch (error: any) {
+
       throw new Error('Error getting invitation by ID: ' + error.message);
+
     }
   }
 

@@ -128,4 +128,19 @@ export class RepositoryEvent implements EventRepository {
         }
     }
 
+
+    public async findEventbyDBId(id: number): Promise<any> {
+
+        try{
+            return await this.prisma.event.findUnique(
+                {
+                    where:{id}
+                }
+            )
+        }
+        catch(error: any){
+            throw new Error("Error finding event by ID: " + error.message);
+        }
+    }
+
 }

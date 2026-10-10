@@ -24,6 +24,9 @@ export class Invitation extends Entity<invitationProps> {
         return this.props.eventId;
     }
 
+    get uuId():string{
+      return this.id
+    }
     // get inviteeEmail(): string {
     //     return this.props.inviteEmail;
     // }

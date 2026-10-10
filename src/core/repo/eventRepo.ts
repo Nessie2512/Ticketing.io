@@ -6,4 +6,5 @@ export abstract class EventRepository implements Repository<Event>{
     abstract findAll():Promise<Event[]>
     abstract findbyEvent(eventname:string):Promise<Event>
     abstract findbyId(id:string):Promise<Event>
+    abstract findEventbyDBId(id:number):Promise<any>
 }

@@ -81,8 +81,8 @@ import { RepositoryEvent } from '../repository/prisma/event.repo';
     },
     {
       provide: getInvitationbyId,
-      useFactory: (repository: InvitationRepo) => new getInvitationbyId(repository),
-      inject: [InvitationRepo],
+      useFactory: (repository: InvitationRepo, eventRepo: EventRepository) => new getInvitationbyId(repository, eventRepo),
+      inject: [InvitationRepo, EventRepository],
     },
     {
       provide: getAllInvitationFromEvent,

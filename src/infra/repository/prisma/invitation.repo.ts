@@ -39,9 +39,12 @@ export class InvitationRepository implements InvitationRepo {
           
           
           try{
+
+
                return await this.prisma.invitation.findUnique({
-                    where: { uuid: id }
+                    where: { uuid: id },
                });
+               
           }
           catch(error: any){
                throw new Error("Error finding invitation by ID: " + error.message);
