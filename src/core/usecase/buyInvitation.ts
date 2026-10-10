@@ -17,7 +17,6 @@ export class buyInvitation{
             throw new Error("Event not found");
         }
         eventExits.bookInvitation(data.invitationEmail);
-        console.log('Booking invitation for event:', eventExits.eventName, 'with email:', data.invitationEmail);
-        await this.EventRepository.create(eventExits);
+        await this.EventRepository.save(eventExits);
     }
 }

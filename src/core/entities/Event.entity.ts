@@ -71,8 +71,7 @@ export class Event extends Entity<eventProps> {
 
         const availableInvitation = this.invitations.find
         (inv => inv.invitationStatus === 'Available');
-
-        console.log('Available invitation:', availableInvitation);
+    
         if (!availableInvitation) {
             throw new Error('there is not available for booking.');
         }
@@ -104,4 +103,5 @@ export class Event extends Entity<eventProps> {
     public feedInvitations(invitations: Invitation): void {
         this.Invitations.push(invitations);
     }
+
 }

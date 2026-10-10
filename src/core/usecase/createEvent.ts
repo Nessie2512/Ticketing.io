@@ -18,6 +18,6 @@ export class createEvent{
     public async execute(data:createEventDTO){
         const newEvent = Event.create(data)
         //console.log('Creating event with data:', newEvent);
-        await this.EventRepository.create(newEvent);
+        await this.EventRepository.save(newEvent);
     }
 }

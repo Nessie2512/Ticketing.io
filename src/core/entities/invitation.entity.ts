@@ -1,6 +1,6 @@
 import { Entity } from "../@seed/Entity";
 
-type InvitationStatus = 'Available' | 'Booked' |  'Cancelled';
+export type InvitationStatus = 'Available' | 'Booked' |  'Cancelled';
 
 type invitationProps = {
     eventId: string;
@@ -61,5 +61,9 @@ export class Invitation extends Entity<invitationProps> {
     this._invitationStatus = 'Cancelled';
   }
 
+  public restoreStatus(status: InvitationStatus, email?: string): void {
+    this._invitationStatus = status;
+    if (email) this.email = email;
+}
   
 }
