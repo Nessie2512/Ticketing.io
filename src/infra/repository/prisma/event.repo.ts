@@ -1,6 +1,7 @@
 import { Event } from "../../../core/entities/Event.entity";
 import { EventRepository } from "../../../core/repo/eventRepo";
 import { eventMapper } from "./eventMapper";
+import { InvitationMapper } from "./invitationMapper";
 import { PrismaService } from "./prisma.service";
 
 
@@ -49,9 +50,21 @@ export class RepositoryEvent implements EventRepository {
 
             console.log('Finding event by ID:', id);
             const prismaEvent = await this.prisma.event.findUnique({ where: { uuid: id } });
-            return eventMapper.fromPrisma(prismaEvent);
+            const allInvitations = await this.prisma.invitation.findMany({ where: { eventId: prismaEvent?.id } });
+            
+            const event = eventMapper.fromPrisma(prismaEvent);
+            
+            for (const invitation of allInvitations) {
+                event.feedInvitations(InvitationMapper.fromPrisma(invitation));
+            }
+
+            //console.log('Event found:', event);
+            return event;
+
+
         } catch (error: any) {
             throw new Error("Error finding event by ID: " + error.message);
         }
-    }   
+    }
+
 }
